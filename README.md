@@ -15,7 +15,7 @@ The goal of this project is to illustrate the trends in collisions occurring dur
 http://127.0.0.1:5500/index.html
 
 ***Screenshots:***
-![Uploading Screen Shot 2021-12-09 at 3.35.57 AM.png…]()!
+![Alt text](/geog495_final_project/assets/seattle_collisions.png?raw=true)
 
 ***Main functions:***
 Some of the main functions include:
