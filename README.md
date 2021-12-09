@@ -19,10 +19,10 @@ Screenshots
 
 
 Main functions:
-Three of the main functions include:
-map.on('load', () => 
+Some of the main functions include:
+- map.on('load', () => 
 This callback function tells your browser to wait until the map is finished loading before trying to add new things to it. Any code that adds layers should be inside of this callback function. 
-filterYear, filterMonth, filterDay
+- filterYear, filterMonth, filterDay
 These functions are programmed to filter the fields found within the dataset. They are all hard-coded so that the selected fields (‘YEAR’, ‘MONTH’, and ‘DAY’) are equal or not equal to that exact value
 (i.e.let filterYear = ['==', ['number', ['get', 'YEAR']], 2021];). It is worth noting that because the values within field ‘DAY’ are not string values, I decided not to hardcode a ‘placeholder’ value, but instead used the integer value 7. This is because the int array for days of the week start from 0 and end at 6. Thus, because 7 is never reached, it was a reasonable replacement for the ‘placeholder’ string value. 
 
@@ -36,7 +36,7 @@ Other things that are necessary to inform the audience:
 The template from this project directly comes from the material taught through Module 09 and the tutorial can be accessed here: https://docs.mapbox.com/help/tutorials/show-changes-over-time/#finished-product
 
 Acknowledgment:
-Bo Zhao- taught concepts which I was able to utilize for the final project
-Steven Bao- responding to my emails efficiently and answering all my questions I had when errors occurred in my code
-Mapbox- providing their template tutorial
-Seattle GeoData- providing reliable and public dataset
+- Bo Zhao: taught concepts which I was able to utilize for the final project
+- Steven Bao: responding to my emails efficiently and answering all my questions I had when errors occurred in my code
+- Mapbox: providing their template tutorial
+- Seattle GeoData: providing reliable and public dataset
