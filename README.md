@@ -1,6 +1,6 @@
 # final_project: Show changes over time with Mapbox GL JS
 
-## ***Project title:***
+### ***Project title:***
 Visualizing trends over change of time with collisions that have occurred in Seattle (2014-2020)
 
 
