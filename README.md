@@ -35,7 +35,6 @@ The applied library in use for the purpose of this project is Mapbox GL JS and t
 The template from this project directly comes from the material taught through Module 09 and the tutorial can be accessed here: https://docs.mapbox.com/help/tutorials/show-changes-over-time/#finished-product
 
 ***Acknowledgment:***
-
 - Bo Zhao: taught concepts which I was able to utilize for the final project
 - Steven Bao: responding to my emails efficiently and answering all my questions I had when errors occurred in my code
 - Mapbox: providing their template tutorial
