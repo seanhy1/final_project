@@ -1,10 +1,10 @@
 # final_project: Show changes over time with Mapbox GL JS
 
-***Project title:***
+## ***Project title:***
 Visualizing trends over change of time with collisions that have occurred in Seattle (2014-2020)
 
 
-***Project description:***
+## ***Project description:***
 This web application is designed to display a map that shows data change over time using Mapbox GL JS. The source data that I had decided to work with for my project is from NYC Seattle GeoData in which contains more than 235,000 records of all types of collisions which have occurred since 2004 to present day. The data was provided by the Seattle Police Department and recorded by Traffic Records. As I was filtering the original GeoJSON file that I had initially downloaded, I realized that the process was taking much longer than needed (QGIS desktop application wouldn’t respond after calculating one field for a whole column of data entries). This procedure was quite time consuming, and created a lot of frustration because of the minor setbacks that came along with wrangling the data in accordance to how I wanted to design my web application. Thus, rather than displaying all data records dating back to the year 2004, I decided to advance the time gap by ten years, making the data much smaller in download size. This also enhanced the performance speed of my application when configuring user input for filtering purposes. Furthermore, because the year 2021 is still in progress, I decided to declare the max range as 2020 in order for the web application to properly display all data when inputs are interacted with.
 
 ***Project goal (such as, what is the message you want to deliver through your project?):***
