@@ -15,8 +15,7 @@ The goal of this project is to illustrate the trends in collisions occurring dur
 http://127.0.0.1:5500/index.html
 
 ***Screenshots:***
-![Screen Shot 2021-12-08 at 10 09 56 PM](https://user-images.githubusercontent.com/86577552/145343601-72db171b-3fe7-440f-b2f3-b1a5af55ea10.png)
-
+![Uploading Screen Shot 2021-12-09 at 3.35.57 AM.png…]()
 
 ***Main functions:***
 Some of the main functions include:
