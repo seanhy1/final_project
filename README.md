@@ -12,7 +12,7 @@ The goal of this project is to illustrate the trends in collisions occurring dur
 
 
 ***The application URL (not the repository url):***
-http://127.0.0.1:5500/index.html
+https://seanhy1.github.io/final_project/geog495_final_project/index.html
 
 ***Screenshots:***
 ![Alt text](/geog495_final_project/assets/seattle_collisions.png?raw=true)
