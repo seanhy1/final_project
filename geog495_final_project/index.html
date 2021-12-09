@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Final Project: Examining injury trends over time through Seattle Collisions</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.6.0/mapbox-gl.js"></script>
+    <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.6.0/mapbox-gl.css" rel="stylesheet" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 20px;
+            line-height: 30px;
+        }
+
+        h2 {
+            font-size: 14px;
+            line-height: 20px;
+            margin-bottom: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #2dc4b2;
+        }
+
+        #console {
+            position: absolute;
+            margin: 10px;
+            width: 240px;
+            background-color: whitesmoke;
+            padding: 10px 20px;
+        }
+
+        .session {
+            margin-bottom: 20px;
+        }
+
+        .row {
+            height: 12px;
+            width: 100%;
+        }
+
+        .colors {
+            background: linear-gradient(to right,
+                    #2dc4b2,
+                    #3bb3c3,
+                    #669ec4,
+                    #8b88b6,
+                    #a2719b,
+                    #aa5e79);
+            margin-bottom: 5px;
+        }
+
+        .label {
+            width: 12.5%;
+            display: inline-block;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <div id="console">
+        <h1>Seattle Collisons</h1>
+        <p>
+            Data: <a href="https://data-seattlecitygis.opendata.arcgis.com/datasets/5b5c745e0f1f48e7a53acec63a0022ab"> Collisons provided by SPD and recorded by Traffic Records in Seattle (2014-2020) </a>
+        </p>
+        <div class="session">
+            <h2>Injuries Sustained</h2>
+            <div class="row colors"></div>
+            <div class="row labels">
+                <div class="label">0</div>
+                <div class="label">1</div>
+                <div class="label">2</div>
+                <div class="label">3</div>
+                <div class="label">4</div>
+                <div class="label">5+</div>
+            </div>
+        </div>
+       
+        <div class="session">
+            <h2>Year: <label id="active-year">2020</label></h2>
+            <input id="slider_year" class="row" type="range" min="2014" max="2020" step="1" value="2021" />
+            </div>
+        
+        <div class="session">
+            <h2>Month: <label id="active-month">December</label></h2>
+            <input id="slider" class="row" type="range" min="1" max="12" step="1" value="12" />
+            </div>
+        
+        <div class="session">
+            <h2>Day of the week</h2>
+            <div class="row" id="radio_button">
+                <input
+                id="all"
+                type="radio"
+                name="toggle"
+                value="all"
+                checked="checked"/>
+                <label for="all">All</label>
+                <input id="weekday" type="radio" name="toggle" value="weekday" />
+                <label for="weekday">Weekday</label>
+                <input id="weekend" type="radio" name="toggle" value="weekend" />
+                <label for="weekend">Weekend</label>
+                </div>
+        </div>
+    </div>
+
+    <script>
+        mapboxgl.accessToken =
+            'pk.eyJ1Ijoic2Vhbmh5IiwiYSI6ImNrdmNxa3NpaDE2dnAyb25vM2JqaTdlNHUifQ.bhfXc7FnBniPe-rceHpc7g';
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/light-v10',
+            center: [-122.360, 47.6162],  
+            zoom: 10.6
+        });
+
+            map.on('load', () => {
+                let filterYear = ['==', ['number', ['get', 'YEAR']], 2020];
+                let filterMonth = ['==', ['number', ['get', 'MONTH']], 12];
+                let filterDay = ['!=', ['number', ['get', 'DAY']], 7];
+
+                map.addLayer({
+                    id: 'collisions',
+                    type: 'circle',
+                    source: {
+                        type: 'geojson',
+                        data: 'assets/collisions.geojson'
+                    },
+                    paint: {
+                        'circle-radius': [
+                            'interpolate',
+                            ['linear'],
+                            ['number', ['get', 'INJURIES']],
+                            0,  4,
+                            5,  24
+                        ],
+                        'circle-color': [
+                            'interpolate',
+                            ['linear'],
+                            ['number', ['get', 'INJURIES']],
+                            0, '#2DC4B2',
+                            1,  '#3BB3C3',
+                            2,  '#669EC4',
+                            3,  '#8B88B6',
+                            4,  '#A2719B',
+                            5,  '#AA5E79'
+
+                        ],
+                        'circle-opacity': 0.8
+                    },
+                    'filter': ['all', filterYear, filterMonth, filterDay]
+                });
+
+                // update month filter when the slider is dragged
+                document.getElementById('slider').addEventListener('input', (event) => {
+                    const month = parseInt(event.target.value);
+                    // update the map
+                    map.setFilter('collisions', ['==', ['number', ['get', 'MONTH']], month]);
+                    const months = [
+                        'PLACEHOLDER',
+                        'January',
+                        'February',
+                        'March',
+                        'April',
+                        'May',
+                        'June',
+                        'July',
+                        'August',
+                        'September',
+                        'October',
+                        'November',
+                        'December'
+                    ];
+                    // update text in the UI
+                    document.getElementById('active-month').textContent = months[month];
+                });
+
+                document.getElementById('slider_year').addEventListener('input', (event) => {
+                    const year = parseInt(event.target.value);
+                    // update the map
+                    map.setFilter('collisions', ['==', ['number', ['get', 'YEAR']], year]);
+                  
+                    // update text in the UI
+                    document.getElementById('active-year').textContent = year;
+                });
+
+                document.getElementById('radio_button').addEventListener('change', (event) => {
+                    const day = event.target.value;
+                    // update the map filter
+                    if (day === 'all') {
+                        filterDay = ['!=', ['number', ['get', 'DAY']], 7];
+                    } 
+                    else if (day === 'weekday') {
+                        filterDay = ['match', ['get', 'DAY'], [0, 6], false, true];
+                    } 
+                    else if (day === 'weekend') {
+                        filterDay = ['match', ['get', 'DAY'], [0, 6], true, false];
+                    } 
+                    else {
+                        console.error('error');
+                    }
+                
+                    map.setFilter('collisions', ['all', filterYear, filterMonth, filterDay]);
+
+                });
+            });
+    </script>
+</body>
+
+</html>
