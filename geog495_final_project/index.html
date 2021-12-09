@@ -172,7 +172,8 @@
                 document.getElementById('slider').addEventListener('input', (event) => {
                     const month = parseInt(event.target.value);
                     // update the map
-                    map.setFilter('collisions', ['==', ['number', ['get', 'MONTH']], month]);
+                    filterMonth = ['==', ['number', ['get', 'MONTH']], month];
+                    map.setFilter('collisions', ['all', filterYear, filterMonth, filterDay]);
                     const months = [
                         'PLACEHOLDER',
                         'January',
@@ -195,8 +196,8 @@
                 document.getElementById('slider_year').addEventListener('input', (event) => {
                     const year = parseInt(event.target.value);
                     // update the map
-                    map.setFilter('collisions', ['==', ['number', ['get', 'YEAR']], year]);
-                  
+                    filterYear = ['==', ['number', ['get', 'YEAR']], year];
+                    map.setFilter('collisions', ['all', filterYear, filterMonth, filterDay]);                  
                     // update text in the UI
                     document.getElementById('active-year').textContent = year;
                 });
